@@ -18,12 +18,12 @@ import com.gtanev.libraries.binarytreeroll.tree.InorderVisitor;
 import com.gtanev.libraries.binarytreeroll.tree.NodeCollectorVisitorAction;
 import com.gtanev.libraries.binarytreeroll.tree.PostorderVisitor;
 import com.gtanev.libraries.binarytreeroll.tree.PreorderVisitor;
+import com.gtanev.libraries.binarytreeroll.tree.VisitorAction;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -174,15 +174,15 @@ class UnitTests {
     var inorderList = new ArrayList<Integer>();
     var postorderList = new ArrayList<Integer>();
 
-    Consumer<Node<Integer>> preorderAction = node -> preorderList.add(node.getValue());
-    Consumer<Node<Integer>> inorderAction = node -> inorderList.add(node.getValue());
-    Consumer<Node<Integer>> postorderAction = node -> postorderList.add(node.getValue());
+    VisitorAction<Integer> addToPreorderList = node -> preorderList.add(node.getValue());
+    VisitorAction<Integer> addToInorderList = node -> inorderList.add(node.getValue());
+    VisitorAction<Integer> addToPostorderList = node -> postorderList.add(node.getValue());
 
-    tree.traverse(new PreorderVisitor<>(preorderAction
+    tree.traverse(new PreorderVisitor<>(addToPreorderList
         .andThen(node -> System.out.println("Adding " + node.getValue() + " to preorder list"))));
-    tree.traverse(new InorderVisitor<>(inorderAction
+    tree.traverse(new InorderVisitor<>(addToInorderList
         .andThen(node -> System.out.println("Adding " + node.getValue() + " to inorder list"))));
-    tree.traverse(new PostorderVisitor<>(postorderAction
+    tree.traverse(new PostorderVisitor<>(addToPostorderList
         .andThen(node -> System.out.println("Adding " + node.getValue() + " to postorder list"))));
 
     assertEquals(List.of(1, 2, 3, 4, 6, 5), preorderList);

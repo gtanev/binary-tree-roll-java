@@ -1,9 +1,8 @@
 package com.gtanev.libraries.binarytreeroll.tree;
 
 import com.gtanev.libraries.binarytreeroll.tree.BinaryTree.Node;
-import java.util.function.Consumer;
 
-public record InorderVisitor<T>(Consumer<Node<T>> action) implements Visitor<T> {
+public record InorderVisitor<T>(VisitorAction<T> action) implements Visitor<T> {
 
   @Override
   public void visit(Node<T> root) {
