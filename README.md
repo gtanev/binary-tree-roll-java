@@ -47,7 +47,7 @@ Below is a simple example of how this library can be used to construct a binary 
 
 ```java
 // Create a binary tree
-var tree = BinaryTree.of(1, 2, 3, null, null, 4, 5, null, 6);
+var tree = BinaryTree.of(1, 2, 3, null, null, 4, 5, null, null, 6);
 
 // Instantiate a printer with the standard output stream
 var printer = new BinaryTreePrinter<Integer>(System.out);
@@ -55,46 +55,46 @@ var printer = new BinaryTreePrinter<Integer>(System.out);
 // Print the tree and its traversals
 printer.println("Original tree:\n");
 printer.printTree(tree);
-printer.printPreorder(tree);  // 1 2 3 4 6 5
-printer.printInorder(tree);   // 2 1 4 6 3 5
-printer.printPostorder(tree); // 2 6 4 5 3 1
+printer.printPreorder(tree);
+printer.printInorder(tree);
+printer.printPostorder(tree);
 
-// Roll the tree clockwise
-tree.roll(RollStrategyFactory.create(RollDirection.CLOCKWISE));
+// Roll the tree counterclockwise
+tree.roll(RollStrategyFactory.create(RollDirection.COUNTERCLOCKWISE));
 
 // Print the rolled tree and its traversals
 printer.println("\nRolled tree:\n");
 printer.printTree(tree);
-printer.printPreorder(tree);  // 2 1 4 6 3 5
-printer.printInorder(tree);   // 2 6 4 5 3 1
-printer.printPostorder(tree); // 6 5 3 4 1 2
+printer.printPreorder(tree);
+printer.printInorder(tree);
+printer.printPostorder(tree);
 ```
 ```
 Original tree:
 
-            5
+            5 ————┐
+            │     6
       3 ————┤
-      │     │     6
-      │     4 ————┘
+      │     4
 1 ————┤
       2
 
-1 2 3 4 6 5  Preorder
-2 1 4 6 3 5  Inorder
-2 6 4 5 3 1  Postorder
+1 2 3 4 5 6  Preorder
+2 1 4 3 6 5  Inorder
+2 4 6 5 3 1  Postorder
 
 Rolled tree:
 
-      1 ————┐
-      │     │     3 ————┐
-      │     │     │     5
-      │     4 ————┤
-      │           6
-2 ————┘
+      6
+5 ————┤
+      │     4
+      3 ————┤
+            │     2
+            1 ————┘
 
-2 1 4 6 3 5  Preorder
-2 6 4 5 3 1  Inorder
-6 5 3 4 1 2  Postorder
+5 3 1 2 4 6  Preorder
+1 2 3 4 5 6  Inorder
+2 1 4 3 6 5  Postorder
 ```
 The following example demonstrates how to use the predefined visitors to traverse a binary tree, and how to use lambda expressions to define a custom visitor action.
 
