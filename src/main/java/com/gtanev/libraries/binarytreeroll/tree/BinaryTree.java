@@ -102,7 +102,11 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
 
   @Override
   public void traverse(Visitor<T> visitor) {
-    visitor.visit(this.root);
+    if (this.root == null) {
+      throw new IllegalStateException("Cannot traverse an empty tree.");
+    }
+
+    this.root.traverse(visitor);
   }
 
   @Override
@@ -128,7 +132,7 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
    *
    * @param <T> the type of the value held by the node
    */
-  public static class Node<T> {
+  public static class Node<T> implements Traversable<T> {
 
     private T value;
     private Node<T> left;
@@ -162,6 +166,10 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
 
     public void setRight(Node<T> right) {
       this.right = right;
+    }
+
+    public void traverse(Visitor<T> visitor) {
+      visitor.visit(this);
     }
 
     /**

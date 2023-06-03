@@ -15,6 +15,7 @@ import com.gtanev.libraries.binarytreeroll.tree.NodeCollectorVisitorAction;
 import com.gtanev.libraries.binarytreeroll.tree.PostorderVisitor;
 import com.gtanev.libraries.binarytreeroll.tree.PreorderVisitor;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Named;
@@ -142,7 +143,6 @@ class IntegrationTests<T> {
 
   static Stream<Named<BinaryTree<?>>> sampleTrees() {
     var trees = List.of(
-        BinaryTree.of(),
         BinaryTree.of(1),
         BinaryTree.of(1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987),
         BinaryTree.of(1, null, 2, null, 3, null, 4, null, 5, null, 6, null, 7, null, 8, null, 9),
@@ -155,18 +155,19 @@ class IntegrationTests<T> {
         BinaryTree.of("E,D,H,B,#,F,J,A,C,#,G,I".split(","), "#")
     );
 
-    return Stream.of(
-        named("emptyTree", trees.get(0)),
-        named("singletonTree", trees.get(1)),
-        named("perfectFibonacciTree", trees.get(2)),
-        named("rightSkewedIntsTree", trees.get(3)),
-        named("leftSkewedIntsTree", trees.get(4)),
-        named("symmetricBooleanTree", trees.get(5)),
-        named("rightSubtreeFloatsTree", trees.get(6)),
-        named("leftSubtreeDoublesTree", trees.get(7)),
-        named("balancedCharTree", trees.get(8)),
-        named("completeStringTree", trees.get(9)),
-        named("customNullIdentifierTree", trees.get(10))
+    var names = List.of(
+        "singletonTree",
+        "perfectFibonacciTree",
+        "rightSkewedIntsTree",
+        "leftSkewedIntsTree",
+        "symmetricBooleanTree",
+        "rightSubtreeFloatsTree",
+        "leftSubtreeDoublesTree",
+        "balancedCharTree",
+        "completeStringTree",
+        "customNullIdentifierTree"
     );
+
+    return IntStream.range(0, trees.size()).mapToObj(i -> named(names.get(i), trees.get(i)));
   }
 }

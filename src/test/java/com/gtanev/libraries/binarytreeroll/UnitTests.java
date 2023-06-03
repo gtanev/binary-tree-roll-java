@@ -198,9 +198,14 @@ class UnitTests {
     var inorderCollector = new NodeCollectorVisitorAction<Integer>();
     var postorderCollector = new NodeCollectorVisitorAction<Integer>();
 
-    tree.traverse(new PreorderVisitor<>(preorderCollector));
-    tree.traverse(new InorderVisitor<>(inorderCollector));
-    tree.traverse(new PostorderVisitor<>(postorderCollector));
+    assertThrows(IllegalStateException.class,
+        () -> tree.traverse(new PreorderVisitor<>(preorderCollector)));
+
+    assertThrows(IllegalStateException.class,
+        () -> tree.traverse(new InorderVisitor<>(inorderCollector)));
+
+    assertThrows(IllegalStateException.class,
+        () -> tree.traverse(new PostorderVisitor<>(postorderCollector)));
 
     assertEquals(Collections.emptyList(), preorderCollector.getList());
     assertEquals(Collections.emptyList(), inorderCollector.getList());
