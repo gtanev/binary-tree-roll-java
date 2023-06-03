@@ -29,7 +29,7 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
   }
 
   public long size() {
-    return size(root);
+    return size(this.root);
   }
 
   private long size(Node<T> root) {
@@ -37,7 +37,7 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
   }
 
   public long height() {
-    return height(root);
+    return height(this.root);
   }
 
   private long height(Node<T> root) {
@@ -102,11 +102,11 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
 
   @Override
   public void traverse(Visitor<T> visitor) {
-    if (this.root == null) {
+    if (root == null) {
       throw new IllegalStateException("Cannot traverse an empty tree.");
     }
 
-    this.root.traverse(visitor);
+    root.traverse(visitor);
   }
 
   @Override
@@ -119,7 +119,7 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
     if (this == o) return true;
     if (!(o instanceof BinaryTree<?> that)) return false;
 
-    return Objects.equals(root, that.root);
+    return Objects.equals(this.root, that.root);
   }
 
   @Override
@@ -194,11 +194,11 @@ public class BinaryTree<T> implements Traversable<T>, Rollable<T> {
     @Override
     public boolean equals(Object o) {
       if (this == o) return true;
-      if (!(o instanceof Node<?> node)) return false;
+      if (!(o instanceof Node<?> that)) return false;
 
-      if (!Objects.equals(value, node.value)) return false;
-      if (!Objects.equals(left, node.left)) return false;
-      return Objects.equals(right, node.right);
+      if (!Objects.equals(this.value, that.value)) return false;
+      if (!Objects.equals(this.left, that.left)) return false;
+      return Objects.equals(this.right, that.right);
     }
 
     @Override
